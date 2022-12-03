@@ -33,7 +33,7 @@ if (isset($_POST['btnAddCrime'])) {
     header("Location:addSuspect.php");
     $msg = "<div class='alert alert-success alert-dismissible'>Crime successfully logged</div>";
   }else{
-    $msg = "<div class='alert alert-danger alert-dismissible'>Error occured while logging crime".$stmt->error;
+    $msg = "<div class='alert alert-danger alert-dismissible'>Error occured while logging crime</div>".$stmt->error;
   }
 }
 
@@ -48,12 +48,12 @@ if (isset($_POST['btnAddCrime'])) {
     <div class="card-body">
       <div class="form-group">
         <label class="form-label" for="txtSubject">Subject</label>
-        <input type="text" class="form-control" id="txtSubject" name="txtSubject" />
+        <input type="text" class="form-control" id="txtSubject" name="txtSubject" required />
       </div>
       <div class="form-group">
         <label class="form-label" for="cmbPriority">Priority</label>
-        <select id="cmbPriority" name="cmbPriority" class="form-control">
-          <option value="0">Select Priority</option>
+        <select id="cmbPriority" name="cmbPriority" class="form-control" required>
+          <option value="0" disabled>Select Priority</option>
           <option value="Low" selected>Low</option>
           <option value="Medium">Medium</option>
           <option value="High">High</option>
@@ -61,8 +61,8 @@ if (isset($_POST['btnAddCrime'])) {
       </div>
       <div class="form-group">
         <label class="form-label" for="cmbCategory">Category</label>
-        <select id="cmbCategory" name="cmbCategory" class="form-control">
-          <option value="0" selected>Select Category</option>
+        <select id="cmbCategory" name="cmbCategory" class="form-control" required>
+          <option value="0" disabled selected>Select Category</option>
           <option value="Theft">Theft</option>
           <option value="Murder">Murder</option>
           <option value="Vandalism">Vandalism</option>
@@ -70,11 +70,11 @@ if (isset($_POST['btnAddCrime'])) {
       </div>
       <div class="form-group">
         <label class="form-label" for="txtStatement">Statement</label>
-        <textarea class="form-control" id="txtStatement" name="txtStatement" rows="5" cols="10"></textarea>
+        <textarea class="form-control" id="txtStatement" name="txtStatement" rows="5" cols="10" required></textarea>
       </div>
       <div class="form-group">
         <label class="form-label" for="txtScene">Scene</label>
-        <textarea class="form-control" id="txtScene" name="txtScene" rows="2" cols="10"></textarea>
+        <textarea class="form-control" id="txtScene" name="txtScene" rows="2" cols="10" required></textarea>
       </div>
     </div>
     <div class="card-footer">

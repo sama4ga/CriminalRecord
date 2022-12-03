@@ -32,7 +32,7 @@ if (isset($_POST['btnRegister'])) {
     $con->query("Update `student` SET `passport`='$passportFile' WHERE `id`=$stmt->insert_id;");
     $msg = "<div class='alert alert-success alert-dismissible'>Registration successful</div>";
   }else{
-    $msg = "<div class='alert alert-danger alert-dismissible'>Error occured while registering student".$stmt->error;
+    $msg = "<div class='alert alert-danger alert-dismissible'>Error occured while registering student</div>".$stmt->error;
   }
 }
 

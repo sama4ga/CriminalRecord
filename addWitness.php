@@ -133,6 +133,6 @@ include_once("footer.php");
   function add(id, e) {
     $("#txtWitnessId").val(id);
     var name = e.nextElementSibling.value;      
-    $("#resultDiv").html(name);
+    $("#resultDiv").html("Suspect: " + name);
   }
 </script>

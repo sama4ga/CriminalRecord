@@ -1,0 +1,17 @@
+#Rewrite URL's
+#RewriteEngine On
+#RewriteRule ^error/?$ errors/error.php [NC]
+
+#RewriteEngine On
+#RewriteRule ^([^/.]+)/?$ $1.php  #for php files
+
+#RewriteEngine On
+#RewriteRule ^([a-zA-Z0-9_-]+)$ blog.php?link=$1
+#RewriteRule ^([a-zA-Z0-9_-]+)/$ blog.php?link=$1
+
+# Enable Error Documents
+# (404,File Not Found) | (403,Forbidden) | (500,Internal Server Error) | (400,Bad request) | (401,Authorization required)
+ErrorDocument 404 /errors/404.php
+ErrorDocument 403 /errors/403.php
+ErrorDocument 401 /errors/401.php
+#ErrorDocument 500 /errors/500.php

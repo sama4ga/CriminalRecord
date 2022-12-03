@@ -8,6 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../Bootstrap/bootstrap-4.6.0-dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="../online_shopping/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css" integrity="sha512-ELV+xyi8IhEApPS/pSj66+Jiw+sOT1Mqkzlh8ExXihe4zfqbWkxPRi8wptXIO9g73FSlhmquFlUOuMSoXz5IRw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="styles/main.css">
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <title>Criminal Record | <?php echo $page; ?></title>
@@ -17,4 +18,4 @@
     <header>
 
     </header>
-    <main>
+    <main class="container">

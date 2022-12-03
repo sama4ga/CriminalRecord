@@ -20,13 +20,13 @@ $query = "SELECT `id`,`name`,`department`,`level`,`faculty`,`gender`,`phone`,`em
     if ($result->num_rows > 0) {
       while ($row = $result->fetch_assoc()) {
         echo "<form method='POST'>
-                <div class='d-flex'>
-                  <div class='mr-2'>
+                <div class='row'>
+                  <div class='col-10'>
                     <img src='".$row['passport']."' width='30' height='30' alt='".$row['name']."'/> ".$row['name']."<br />
-                    <i class='text-sm'>".$row['faculty']." ".$row['department']."</i>
+                    <i class='text-sm text-nowrap'>".$row['faculty'].": ".$row['department']."</i>
                   </div>
-                  <div>
-                    <button type='submit' name='btnAddSuspect' class='btn btn-sm btn-success'> + Add</button>
+                  <div class='col-2'>
+                    <button type='submit' name='btnAddSuspect' class='btn btn-sm btn-success'><i class='fa fa-plus' aria-hidden='true'></i> Add</button>
                     <input type='hidden' value='".$row['id']."' name='txtSuspectId' />
                   </div>
                 </div>
@@ -41,3 +41,4 @@ $query = "SELECT `id`,`name`,`department`,`level`,`faculty`,`gender`,`phone`,`em
 
 
 ?>
+

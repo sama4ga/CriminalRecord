@@ -107,7 +107,8 @@ CREATE TABLE `student` (
 CREATE TABLE `suspect` (
   `id` int(11) NOT NULL,
   `studentId` int(11) NOT NULL,
-  `crimeId` int(11) NOT NULL
+  `crimeId` int(11) NOT NULL,
+  `status` varchar(20) NOT NULL DEFAULT 'Tried'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -122,6 +123,7 @@ CREATE TABLE `verdict` (
   `crimeId` int(11) NOT NULL,
   `judge` varchar(200) NOT NULL,
   `status` varchar(10) NOT NULL,
+  `verdict` TEXT NOT NULL,
   `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 

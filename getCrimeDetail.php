@@ -17,26 +17,28 @@ if ($result) {
   if ($result->num_rows > 0) {
     $crime = $result->fetch_assoc();
     echo "<h3>Crime</h3>
-          <div class='row'>
-            <div class='col-3'>Subject:</div>
-            <div class='col-9'>".$crime['subject']."</div>
-          </div>
-          <div class='row'>
-            <div class='col-3'>Statement:</div>
-            <div class='col-9'>".$crime['statement']."</div>
-          </div>
-          <div class='row'>
-            <div class='col-3'>Scene:</div>
-            <div class='col-9'>".$crime['scene']."</div>
-          </div>
-          <div class='row'>
-            <div class='col-3'>Date committed:</div>
-            <div class='col-9'>".$crime['date']."</div>
-          </div>
-          <div class='row'>
-            <div class='col-3'>Officer in-charge:</div>
-            <div class='col-8'>".$crime['name']."</div>
-            <span><a href='removeOfficer.php?oId=".$crime['officerId']."&cId=".$crimeId."' title='Change Officer'>-</a></span>
+          <div class='pb-2'>
+            <div class='row'>
+              <div class='col-3'>Subject:</div>
+              <div class='col-9'>".$crime['subject']."</div>
+            </div>
+            <div class='row'>
+              <div class='col-3'>Statement:</div>
+              <div class='col-9'>".$crime['statement']."</div>
+            </div>
+            <div class='row'>
+              <div class='col-3'>Scene:</div>
+              <div class='col-9'>".$crime['scene']."</div>
+            </div>
+            <div class='row'>
+              <div class='col-3'>Date committed:</div>
+              <div class='col-9'>".$crime['date']."</div>
+            </div>
+            <div class='row'>
+              <div class='col-3'>Officer in-charge:</div>
+              <div class='col-8'>".$crime['name']."</div>
+              <span><a href='removeOfficer.php?oId=".$crime['officerId']."&cId=".$crimeId."' title='Change Officer'><i class='fa fa-minus-circle' aria-hidden='true'></i></a></span>
+            </div>
           </div>
         ";
   }else{
@@ -48,7 +50,7 @@ if ($result) {
 
 
 // fetch suspects
-$query = "SELECT s.`id` as 'suspectId',`name`,`regNo`,`department`,`faculty`,`level`,st.`id` as 'studentId',`passport`
+$query = "SELECT s.`id` as 'suspectId',`status`,`name`,`regNo`,`department`,`faculty`,`level`,st.`id` as 'studentId',`passport`
             FROM `suspect` s
             JOIN `student` st ON st.`id`=s.`studentId`
             WHERE s.`crimeId`=$crimeId;";
@@ -57,15 +59,15 @@ $result = $con->query($query);
 if ($result) {
   if ($result->num_rows > 0) {
     //$suspects = $result->fetch_assoc();
+    echo "<h3 class='pt-3'>Suspects</h3>";
     while ($suspect = $result->fetch_assoc()) {
-      echo "<h3 class='pt-3'>Suspects</h3>
-            <div class='row'>
+      echo "<div class='row mt-2 pb-2'>
               <div class='col-3 pr-0'>
                 <img src='".$suspect['passport']."' width='100%' height='100' />
               </div>           
               <div class='col-7'>
                 <div class='row'>
-                  <div class='col-3'>Name:</div>
+                  <div class='col-3'>Name</div>
                   <div class='col-9'>".$suspect['name']."</div>
                 </div>
                 <div class='row'>
@@ -76,10 +78,14 @@ if ($result) {
                   <div class='col-3'>Level</div>
                   <div class='col-9'>".$suspect['level']."</div>
                 </div>
+                <div class='row'>
+                  <div class='col-3'>Status</div>
+                  <div class='col-9'>".$suspect['status']."</div>
+                </div>
               </div>
               <div class='col-2'>
-                <a href='viewStudent.php?id=".$suspect['studentId']."' title='View suspect info'>+</a>
-                <a href='removeSuspect.php?id=".$suspect['suspectId']."' title='Remove suspect'>-</a>
+                <a href='viewStudent.php?id=".$suspect['studentId']."' title='View suspect info'><i class='fa fa-addresss-card' aria-hidden='true'></i></a>
+                <a href='removeSuspect.php?id=".$suspect['suspectId']."' title='Remove suspect'><i class='fa fa-minus-circle' aria-hidden='true'></i></a>
               </div>
             </div>
           ";
@@ -91,7 +97,7 @@ if ($result) {
   echo "<div class='alert alert-danger alert-dismissible'>Error occured while fetching suspects</div>".$con->error;
 }
 
-echo "<div class='alert alert-info'><a href='addSuspect.php?cId=$crimeId'>+ Add Suspect</a></div>";
+echo "<div class='alert alert-info mt-2'><a href='addSuspect.php?cId=$crimeId'><i class='fa fa-plus' aria-hidden='true'></i> Add Suspect</a></div>";
 
 
 // fetch witnesses
@@ -104,9 +110,9 @@ $result = $con->query($query);
 if ($result) {
   if ($result->num_rows > 0) {
     // $witnesses = $result->fetch_assoc();
+    echo "<h3 class='pt-3'>Witnesses</h3>";
     while ($witness = $result->fetch_assoc()) {
-      echo "<h3 class='pt-3'>Witnesses</h3>
-            <div class='row'>
+      echo "<div class='row mt-2 pb-2'>
               <div class='col-3 pr-0'>
                 <img src='".$witness['passport']."' width='100%' height='100' />
               </div>           
@@ -129,8 +135,8 @@ if ($result) {
                 </div>
               </div>
               <div class='col-2'>
-                <a href='viewStudent.php?id=".$witness['studentId']."' title='View witness info'>+</a>
-                <a href='removeWitness.php?id=".$witness['witnessId']."' title='Remove witness'>-</a>
+                <a href='viewStudent.php?id=".$witness['studentId']."' title='View witness info'><i class='fa fa-address-card' aria-hidden='true'></i></a>
+                <a href='removeWitness.php?id=".$witness['witnessId']."' title='Remove witness'><i class='fa fa-minus-circle' aria-hidden='true'></i></a>
               </div>
             </div>
           ";
@@ -142,11 +148,11 @@ if ($result) {
   echo "<div class='alert alert-danger alert-dismissible'>Error occured while fetching witnesses</div>".$con->error;
 }
 
-echo "<div class='alert alert-info'><a href='addWitness.php?cId=$crimeId'>+ Add Witness</a></div>";
+echo "<div class='alert alert-info mt-2'><a href='addWitness.php?cId=$crimeId'><i class='fa fa-plus' aria-hidden='true'></i> Add Witness</a></div>";
 
 
 // fetch verdicts
-$query = "SELECT v.`id` as 'verdictId',`name`,`type`,`address`,`judge`,`status`,c.`id` as 'courtId',`date`
+$query = "SELECT v.`id` as 'verdictId',`name`,`type`,`address`,`judge`,`status`,`verdict`,c.`id` as 'courtId',`date`
             FROM `verdict` v
             JOIN `court` c ON c.`id`=v.`courtId`
             WHERE v.`crimeId`=$crimeId;";
@@ -155,15 +161,15 @@ $result = $con->query($query);
 if ($result) {
   if ($result->num_rows > 0) {
     // $verdicts = $result->fetch_assoc();
+    echo "<h3 class='pt-3'>Verdicts</h3>";
     while ($verdict = $result->fetch_assoc()) {
-      echo "<h3 class='pt-3'>Verdicts</h3>
-            <div class='row'>
+      echo "<div class='row mt-2 pb-2'>
               <div class='col-10'>
                 <div class='row'>
                   <div class='col-3'>Court</div>
                   <div class='col-7'>".$verdict['name'].", ".$verdict['address']."</div>
                   <div class='col-2'>
-                    <a href='viewCourt.php?id=".$verdict['courtId']."' title='View court info'>+</a>
+                    <a href='viewCourt.php?id=".$verdict['courtId']."' title='View court info'><i class='fa fa-address-card' aria-hidden='true'></i></a>
                   </div>
                 </div>
                 <div class='row'>
@@ -174,9 +180,13 @@ if ($result) {
                   <div class='col-3'>Status</div>
                   <div class='col-8'>".$verdict['status']."</div>
                 </div>
+                <div class='row'>
+                  <div class='col-3'>Verdict</div>
+                  <div class='col-8'>".$verdict['verdict']."</div>
+                </div>
               </div>
               <div class='col-2'>
-                <a href='removeVerdict.php?id=".$verdict['verdictId']."' title='Remove verdict'>-</a>
+                <a href='removeVerdict.php?id=".$verdict['verdictId']."' title='Remove verdict'><i class='fa fa-minus-circle' aria-hidden='true'></i></a>
               </div>
             </div>
           ";
@@ -188,7 +198,7 @@ if ($result) {
   echo "<div class='alert alert-danger alert-dismissible'>Error occured while fetching verdicts</div>".$con->error;
 }
 
-echo "<div class='alert alert-info'><a href='addVerdict.php?cId=$crimeId'>+ Add Verdict</a></div>";
+echo "<div class='alert alert-info mt-2'><a href='addVerdict.php?cId=$crimeId'><i class='fa fa-plus' aria-hidden='true'></i> Add Verdict</a></div>";
 
 
 ?>

@@ -34,6 +34,7 @@ if (isset($_GET['cId'])) {
 
 }elseif(isset($_SESSION['crime'])){
   $crime = $_SESSION['crime'];
+  $crimeId = $crime->id;
 }else{
   echo "<div>You cannot access this page.</div>";
   return;
@@ -58,7 +59,7 @@ if (isset($_POST['btnAddSuspect'])) {
           </div>";
           return;
   }else{
-    echo "<div class='alert alert-danger alert-dismissible'>Error occured while adding suspect".$stmt->error;
+    echo "<div class='alert alert-danger alert-dismissible'>Error occured while adding suspect</div>".$stmt->error;
   }
 }
 
