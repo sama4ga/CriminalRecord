@@ -17,7 +17,7 @@ if (isset($_POST['btnAddCourt'])) {
   if (!$stmt->errno) {
     $msg = "<div class='alert alert-success alert-dismissible'>Court successfully added</div>";
   }else{
-    $msg = "<div class='alert alert-danger alert-dismissible'>Error occured while adding court".$stmt->error;
+    $msg = "<div class='alert alert-danger alert-dismissible'>Error occured while adding court</div>".$stmt->error;
   }
 }
 

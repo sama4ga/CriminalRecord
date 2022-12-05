@@ -3,7 +3,7 @@ require_once("connect.php");
 
 $id = $_REQUEST['id'];
 
-$result = $con->query("DELETE FROM `suspect` WHERE `id`=$id;");
+$result = $con->query("DELETE FROM `court` WHERE `id`=$id;");
 if ($result) {
   $data = array("status"=>"success");
 }else{

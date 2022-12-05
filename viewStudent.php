@@ -5,8 +5,11 @@ require_once("connect.php");
 
 $id = $_REQUEST['id'];
 
-$result = $con->query("SELECT `department`,`faculty`,`name`,`regNo`,`pg`,`dob`,`gender`,`phone`,`email`,`passport`,`address`,`level` FROM `student` WHERE `id`=$id;");
-if ($result) {
+$stmt = $con->prepare("SELECT `department`,`faculty`,`name`,`regNo`,`pg`,`dob`,`gender`,`phone`,`email`,`passport`,`address`,`level` FROM `student` WHERE `id`=?;");
+$stmt->bind_param("i",$id);
+$stmt->execute();
+if ($stmt) {
+  $result = $stmt->get_result();
   if ($result->num_rows > 0) {
     $student = $result->fetch_assoc();
     echo "
@@ -70,7 +73,7 @@ if ($result) {
     echo "<div class='alert alert-info alert-dismissible'>No student found</div>".$stmt->error;
   }
 }else{
-  echo "<div class='alert alert-danger alert-dismissible'>Error occured while fetching student info</div>".$stmt->error;
+  echo "<div class='alert alert-danger alert-dismissible'>Error occured while fetching student info</div>".$con->error;
 }
 
 include_once("footer.php");

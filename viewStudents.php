@@ -46,9 +46,9 @@ $query = "SELECT `id`,`name`,`regNo`,`department`,`level`,`faculty`,`gender`,`ph
                       <td class='align-middle'>".$row['email']."</td>
                       <td class='text-nowrap align-middle'>".$row['address']."</td>
                       <td class='align-middle'>".$row['dob']."</td>
-                      <td>
-                        <a href='editStudent.php?id=".$row['id']."' class='bg-primary'><i class='fa fa-keys'></i></a>
-                        <a href='removeStudent.php?id=".$row['id']."' class='bg-danger'><i class='fa fa-stop'></i></a>
+                      <td class='align-middle d-flex'>
+                        <a href='editStudent.php?id=".$row['id']."' class='btn btn-primary btn-sm' title='Edit'><i class='fa fa-edit'></i></a>
+                        <a href='removeStudent.php?id=".$row['id']."' class='btn btn-danger btn-sm' title='Delete'><i class='fa fa-trash'></i></a>
                       </td>
                     </tr>
              ";         
