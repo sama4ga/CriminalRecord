@@ -37,7 +37,7 @@ if ($result) {
             <div class='row'>
               <div class='col-3'>Officer in-charge:</div>
               <div class='col-8'>".$crime['name']."</div>
-              <span><a href='removeOfficer.php?oId=".$crime['officerId']."&cId=".$crimeId."' title='Change Officer'><i class='fa fa-minus-circle' aria-hidden='true'></i></a></span>
+              <span><a href='removeOfficer.php?oId=".$crime['officerId']."&cId=".$crimeId."' title='Change Officer'><i class='fa fa-exchange-alt text-warning' aria-hidden='true'></i></a></span>
             </div>
           </div>
         ";
@@ -85,7 +85,7 @@ if ($result) {
               </div>
               <div class='col-2'>
                 <a href='viewStudent.php?id=".$suspect['studentId']."' title='View suspect info'><i class='fa fa-addresss-card' aria-hidden='true'></i></a>
-                <a href='removeSuspect.php?id=".$suspect['suspectId']."' title='Remove suspect'><i class='fa fa-minus-circle' aria-hidden='true'></i></a>
+                <a href='removeSuspect.php?id=".$suspect['suspectId']."' title='Remove suspect'><i class='fa fa-minus-circle text-danger' aria-hidden='true'></i></a>
               </div>
             </div>
           ";
@@ -134,9 +134,9 @@ if ($result) {
                   <div class='col-8'>".$witness['statement']."</div>
                 </div>
               </div>
-              <div class='col-2'>
+              <div class='col-2' data-id='".$witness['witnessId']."'>
                 <a href='viewStudent.php?id=".$witness['studentId']."' title='View witness info'><i class='fa fa-address-card' aria-hidden='true'></i></a>
-                <a href='removeWitness.php?id=".$witness['witnessId']."' title='Remove witness'><i class='fa fa-minus-circle' aria-hidden='true'></i></a>
+                <a href=\"javascript: confirmDelete(this,'removeWitness.php');\" title='Remove witness'><i class='fa fa-minus-circle text-danger' aria-hidden='true'></i></a>
               </div>
             </div>
           ";
@@ -186,7 +186,7 @@ if ($result) {
                 </div>
               </div>
               <div class='col-2'>
-                <a href='removeVerdict.php?id=".$verdict['verdictId']."' title='Remove verdict'><i class='fa fa-minus-circle' aria-hidden='true'></i></a>
+                <a href='removeVerdict.php?id=".$verdict['verdictId']."' title='Remove verdict'><i class='fa fa-minus-circle text-danger' aria-hidden='true'></i></a>
               </div>
             </div>
           ";
@@ -202,3 +202,16 @@ echo "<div class='alert alert-info mt-2'><a href='addVerdict.php?cId=$crimeId'><
 
 
 ?>
+
+
+<div id="dialog-confirm" title="Confirm Delete" style="display: none;">
+  <p class="mt-4">
+    Are you  sure you want to delete this record?
+  </p>
+</div>
+
+<div id="dialog-message" title="Delete complete" style="display: none;">
+  <p>
+    Record successfully deleted
+  </p>
+</div>

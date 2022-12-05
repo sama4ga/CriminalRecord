@@ -11,6 +11,9 @@ $query = "SELECT `id`,`name`,`regNo`,`department`,`level`,`faculty`,`gender`,`ph
     if ($result->num_rows > 0) {
       echo "<div class='mx-2 my-4'>
               <h1 class='text-center mb-4'>View Student</h1>
+              <div class='float-right my-3'>
+                <a href='addStudent.php' class='btn btn-primary btn-md'><i class='fa fa-plus'></i> Add Student</a>
+              </div>
               <div class='table-responsive'>
                 <table class='table table-striped table-hover'>
                   <thead class='table-dark'>
@@ -46,9 +49,9 @@ $query = "SELECT `id`,`name`,`regNo`,`department`,`level`,`faculty`,`gender`,`ph
                       <td class='align-middle'>".$row['email']."</td>
                       <td class='text-nowrap align-middle'>".$row['address']."</td>
                       <td class='align-middle'>".$row['dob']."</td>
-                      <td class='align-middle d-flex'>
+                      <td class='align-middle d-flex' data-id='".$row['id']."'>
                         <a href='editStudent.php?id=".$row['id']."' class='btn btn-primary btn-sm' title='Edit'><i class='fa fa-edit'></i></a>
-                        <a href='removeStudent.php?id=".$row['id']."' class='btn btn-danger btn-sm' title='Delete'><i class='fa fa-trash'></i></a>
+                        <button onclick=\"confirmDelete(this,'deleteStudent.php')\" class='btn btn-danger btn-sm' title='Delete'><i class='fa fa-trash'></i></button>
                       </td>
                     </tr>
              ";         
@@ -66,3 +69,15 @@ $query = "SELECT `id`,`name`,`regNo`,`department`,`level`,`faculty`,`gender`,`ph
 
 include_once("footer.php");
 ?>
+
+<div id="dialog-confirm" title="Confirm Delete" style="display: none;">
+  <p class="mt-4">
+    Are you  sure you want to delete this student record?
+  </p>
+</div>
+
+<div id="dialog-message" title="Delete complete" style="display: none;">
+  <p>
+    Student record successfully deleted
+  </p>
+</div>

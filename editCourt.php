@@ -10,16 +10,19 @@ if (isset($_POST['btnEditCourt'])) {
   $name = $_POST['txtName'];
   $address = $_POST['txtAddress'];
   $id = $_POST['txtCourtId'];
+
   
   $query = "UPDATE `court` SET `name`=?,`address`=?,`type`=? WHERE `id`=?;";
   $stmt = $con->prepare($query);
   $stmt->bind_param("sssi",$name,$address,$type,$id);
   $stmt->execute();
-  if (!$stmt->errno) {
+  if ($stmt) {
     echo "<div class='alert alert-success alert-dismissible'>Court successfully updated</div>";
   }else{
-    echo "<div class='alert alert-danger alert-dismissible'>Error occured while updating court".$stmt->error;
+    echo "<div class='alert alert-danger alert-dismissible'>Error occured while updating court".$con->error;
   }
+
+  echo "<a href='javascript:history.back();history.back();' class='my-4'>Back...</a>";
   exit();
 
 }
@@ -55,7 +58,7 @@ if (isset($_REQUEST['id'])) {
       <div class="form-group">
         <label class="form-label" for="txtName">Name</label>
         <input type="text" class="form-control" id="txtName" name="txtName" value="<?php echo $court['name'];  ?>" />
-        <input type="hidden" name="txtCourtId" value="<?php echo $court['id'];  ?>" />
+        <input type="hidden" name="txtCourtId" value="<?php echo $id;  ?>" />
       </div>
       <div class="form-group">
         <label class="form-label" for="cmbType">Type</label>
@@ -77,8 +80,9 @@ if (isset($_REQUEST['id'])) {
         <textarea class="form-control" id="txtAddress" name="txtAddress" rows="2" cols="10"><?php echo $court['address'];  ?></textarea>
       </div>
     </div>
-    <div class="card-footer">
-      <input type="submit" class="form-control mx-auto btn-success" style="width:70%;" id="btnEditCourt" name="btnEditCourt" value="Update" />
+    <div class="card-footer d-flex">
+      <input type="submit" class="form-control mx-auto btn-success" id="btnEditCourt" name="btnEditCourt" value="Update" />
+      <a href="javascript:history.back();" class="btn btn-warning btn-md form-control ml-2">Back</a>
     </div>
   </form>
 </div>

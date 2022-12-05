@@ -9,16 +9,23 @@ if (isset($_POST['btnAddCourt'])) {
   $type = $_POST['cmbType'];
   $name = $_POST['txtName'];
   $address = $_POST['txtAddress'];
-  
-  $query = "INSERT INTO `court` (`name`,`address`,`type`) VALUES(?,?,?);";
-  $stmt = $con->prepare($query);
-  $stmt->bind_param("sss",$name,$address,$type);
-  $stmt->execute();
-  if (!$stmt->errno) {
-    $msg = "<div class='alert alert-success alert-dismissible'>Court successfully added</div>";
+
+  if ($type == null) {
+    $msg = "<div class='alert alert-danger alert-dismissible'>Select court type to proceed</div>";
   }else{
-    $msg = "<div class='alert alert-danger alert-dismissible'>Error occured while adding court</div>".$stmt->error;
+    
+    $query = "INSERT INTO `court` (`name`,`address`,`type`) VALUES(?,?,?);";
+    $stmt = $con->prepare($query);
+    $stmt->bind_param("sss",$name,$address,$type);
+    $stmt->execute();
+    if (!$stmt->errno) {
+      $msg = "<div class='alert alert-success alert-dismissible'>Court successfully added</div>";
+    }else{
+      $msg = "<div class='alert alert-danger alert-dismissible'>Error occured while adding court</div>".$stmt->error;
+    }
+
   }
+  
 }
 
 ?>
@@ -32,12 +39,12 @@ if (isset($_POST['btnAddCourt'])) {
     <div class="card-body">
       <div class="form-group">
         <label class="form-label" for="txtName">Name</label>
-        <input type="text" class="form-control" id="txtName" name="txtName" />
+        <input type="text" class="form-control" id="txtName" name="txtName" required />
       </div>
       <div class="form-group">
         <label class="form-label" for="cmbType">Type</label>
-        <select id="cmbType" name="cmbType" class="form-control">
-          <option value="0" selected>Select Court Type</option>
+        <select id="cmbType" name="cmbType" class="form-control" required>
+          <option value="0" disabled>Select Court Type</option>
           <option value="Supreme Court">Supreme Court</option>
           <option value="Judiciary Court">Judiciary Court</option>
           <option value="Appeal Court">Appeal Court</option>
@@ -51,11 +58,12 @@ if (isset($_POST['btnAddCourt'])) {
       </div>
       <div class="form-group">
         <label class="form-label" for="txtAddress">Address</label>
-        <textarea class="form-control" id="txtAddress" name="txtAddress" rows="2" cols="10"></textarea>
+        <textarea class="form-control" id="txtAddress" name="txtAddress" rows="2" cols="10" required></textarea>
       </div>
     </div>
-    <div class="card-footer">
-      <input type="submit" class="form-control mx-auto btn-success" style="width:70%;" id="btnAddCourt" name="btnAddCourt" value="Add Court" />
+    <div class="card-footer d-flex">
+      <input type="submit" class="form-control mx-auto btn-success" id="btnAddCourt" name="btnAddCourt" value="Add Court" />
+      <a href="javascript:history.back();" class="btn btn-warning btn-md form-control ml-2">Back</a>
     </div>
   </form>
 </div>

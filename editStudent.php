@@ -35,12 +35,13 @@ if (isset($_POST['btnEditStudent'])) {
   $stmt = $con->prepare($query);
   $stmt->bind_param("ssssssssssssi",$department,$faculty,$name,$regNo,$pg,$dob,$gender,$phone,$email,$passportFile,$address,$level,$id);
   $stmt->execute();
-  if (!$stmt->errno) {    
-    $msg = "<div class='alert alert-success alert-dismissible'>Update successful</div>";
+  if ($stmt) {    
+    echo "<div class='alert alert-success alert-dismissible'>Update successful</div>";
   }else{
-    $msg = "<div class='alert alert-danger alert-dismissible'>Error occured while updating student record</div>".$stmt->error;
+    echo "<div class='alert alert-danger alert-dismissible'>Error occured while updating student record</div>".$con->error;
   }
 
+  echo "<a href='javascript:history.back();history.back();' class=''>Go back...</a>";
   exit();
 }
 
@@ -96,7 +97,7 @@ if (isset($_REQUEST['id'])) {
       <div class="form-group">
         <label class="form-label" for="cmbGender">Gender</label>
         <select id="cmbGender" name="cmbGender" class="form-control" required>
-          <option value="0" selected>Select gender</option>
+          <option value="0" disabled>Select gender</option>
           <option value="Male" <?php echo $student['gender'] == "Male" ? "selected" : ""; ?>>Male</option>
           <option value="Female" <?php echo $student['gender'] == "Female" ? "selected" : ""; ?>>Female</option>
         </select>
@@ -104,7 +105,7 @@ if (isset($_REQUEST['id'])) {
       <div class="form-group">
         <label class="form-label" for="cmbLevel">Level</label>
         <select id="cmbLevel" name="cmbLevel" class="form-control" required>
-          <option value="0">Select Level</option>
+          <option value="0" disabled>Select Level</option>
           <option value="100" <?php echo $student['level'] == "100" ? "selected" : ""; ?>>100</option>
           <option value="200" <?php echo $student['level'] == "200" ? "selected" : ""; ?>>200</option>
           <option value="300" <?php echo $student['level'] == "300" ? "selected" : ""; ?>>300</option>
@@ -137,8 +138,9 @@ if (isset($_REQUEST['id'])) {
         <input type="text" class="form-control" id="txtPG" name="txtPG" value="<?php echo $student['pg']; ?>" />
       </div>
     </div>
-    <div class="card-footer">
-      <input type="submit" class="form-control mx-auto btn-success" style="width:70%;" id="btnEditStudent" name="btnEditStudent" value="Update" />
+    <div class="card-footer d-flex">
+      <input type="submit" class="form-control mx-auto btn-success" id="btnEditStudent" name="btnEditStudent" value="Update" />
+      <a href="javascript:history.back();" class="btn btn-warning btn-md form-control ml-2">Back</a>
     </div>
   </form>
 </div>

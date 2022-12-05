@@ -16,7 +16,7 @@ if (isset($_POST['btnRegister'])) {
   $name = $_POST['txtName'];
   $address = $_POST['txtAddress'];
   $passport = $_FILES['picPassport'];
-  $type = "User"; //SuperUser
+  $type = $_POST['cmbType']; //SuperUser, User
 
   $hPassword = password_hash($password, PASSWORD_DEFAULT);
   
@@ -24,14 +24,16 @@ if (isset($_POST['btnRegister'])) {
   $stmt = $con->prepare($query);
   $stmt->bind_param("sssssssssss",$username,$hPassword,$name,$rank,$type,$dob,$gender,$phone,$email,$passport['name'],$address);
   $stmt->execute();
-  if (!$stmt->errno) {    
-    mkdir("passports/officers");
+  if ($stmt) {   
+    if (!file_exists("passports/officers")) {
+      mkdir("passports/officers", true);      
+    } 
     $passportFile = "passports/officers/officer_".$stmt->insert_id.".jpeg";
     move_uploaded_file($passport['tmp_name'], $passportFile);
     $con->query("Update `officer` SET `passport`='$passportFile' WHERE `id`=$stmt->insert_id;");
     $msg = "<div class='alert alert-success alert-dismissible'>Registration successful</div>";
   }else{
-    $msg = "<div class='alert alert-danger alert-dismissible'>Error occured while registering officer".$stmt->error;
+    $msg = "<div class='alert alert-danger alert-dismissible'>Error occured while registering officer".$con->error;
   }
 }
 
@@ -61,20 +63,28 @@ if (isset($_POST['btnRegister'])) {
         <input type="text" class="form-control" id="txtRank" name="txtRank" />
       </div>
       <div class="form-group">
+        <label class="form-label" for="cmbType">Type</label>
+        <select id="cmbType" name="cmbType" class="form-control" required>
+          <option value="0" disabled>Select type</option>
+          <option value="User" selected>User</option>
+          <option value="Admin">Admin</option>
+        </select>
+      </div>
+      <div class="form-group">
         <label class="form-label" for="dtpDOB">Date of Birth</label>
-        <input type="date" class="form-control" id="dtpDOB" name="dtpDOB" />
+        <input type="date" class="form-control" id="dtpDOB" name="dtpDOB" value="<?php echo date("Y-m-d"); ?>" required/>
       </div>
       <div class="form-group">
         <label class="form-label" for="cmbGender">Gender</label>
-        <select id="cmbGender" name="cmbGender" class="form-control">
-          <option value="0" selected>Select gender</option>
-          <option value="Male">Male</option>
+        <select id="cmbGender" name="cmbGender" class="form-control" required>
+          <option value="0" disabled>Select gender</option>
+          <option value="Male" selected>Male</option>
           <option value="Female">Female</option>
         </select>
       </div>
       <div class="form-group">
         <label class="form-label" for="txtAddress">Address</label>
-        <textarea class="form-control" id="txtAddress" name="txtAddress" rows="2" cols="10"></textarea>
+        <textarea class="form-control" id="txtAddress" name="txtAddress" rows="2" cols="10" required></textarea>
       </div>
       <div class="form-group">
         <label class="form-label" for="picPassport">Passport</label>
@@ -82,15 +92,16 @@ if (isset($_POST['btnRegister'])) {
       </div>
       <div class="form-group">
         <label class="form-label" for="txtUsername">Username</label>
-        <input type="text" class="form-control" id="txtUsername" name="txtUsername" />
+        <input type="text" class="form-control" id="txtUsername" name="txtUsername" required />
       </div>
       <div class="form-group">
         <label class="form-label" for="txtPassword">Password</label>
-        <input type="password" class="form-control" id="txtPassword" name="txtPassword" />
+        <input type="password" class="form-control" id="txtPassword" name="txtPassword" required />
       </div>
     </div>
-    <div class="card-footer">
-      <input type="submit" class="form-control mx-auto btn-success" style="width:70%;" id="btnRegister" name="btnRegister" value="Register" />
+    <div class="card-footer d-flex">
+      <input type="submit" class="form-control mx-auto btn-success" id="btnRegister" name="btnRegister" value="Register" />
+      <a href="javascript:history.back();" class="btn btn-warning btn-md form-control ml-2">Back</a>
     </div>
   </form>
 </div>

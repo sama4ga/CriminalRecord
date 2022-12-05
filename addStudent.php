@@ -23,16 +23,16 @@ if (isset($_POST['btnRegister'])) {
   $stmt = $con->prepare($query);
   $stmt->bind_param("ssssssssssss",$department,$faculty,$name,$regNo,$pg,$dob,$gender,$phone,$email,$passport['name'],$address,$level);
   $stmt->execute();
-  if (!$stmt->errno) {
+  if ($stmt) {
     if (!file_exists("passports/students")) {
-      mkdir("passports/students");
+      mkdir("passports/students", true);
     }
     $passportFile = "passports/students/student_".$stmt->insert_id.".jpeg";
     move_uploaded_file($passport['tmp_name'], $passportFile);
     $con->query("Update `student` SET `passport`='$passportFile' WHERE `id`=$stmt->insert_id;");
     $msg = "<div class='alert alert-success alert-dismissible'>Registration successful</div>";
   }else{
-    $msg = "<div class='alert alert-danger alert-dismissible'>Error occured while registering student</div>".$stmt->error;
+    $msg = "<div class='alert alert-danger alert-dismissible'>Error occured while registering student</div>".$con->error;
   }
 }
 
@@ -63,20 +63,20 @@ if (isset($_POST['btnRegister'])) {
       </div>
       <div class="form-group">
         <label class="form-label" for="dtpDOB">Date of Birth</label>
-        <input type="date" class="form-control" id="dtpDOB" name="dtpDOB" required/>
+        <input type="date" class="form-control" id="dtpDOB" name="dtpDOB" value="<?php echo date("Y-m-d"); ?>" required/>
       </div>
       <div class="form-group">
         <label class="form-label" for="cmbGender">Gender</label>
         <select id="cmbGender" name="cmbGender" class="form-control" required>
-          <option value="0" selected>Select gender</option>
-          <option value="Male">Male</option>
+          <option value="0" disabled>Select gender</option>
+          <option value="Male" selected>Male</option>
           <option value="Female">Female</option>
         </select>
       </div>
       <div class="form-group">
         <label class="form-label" for="cmbLevel">Level</label>
         <select id="cmbLevel" name="cmbLevel" class="form-control" required>
-          <option value="0">Select Level</option>
+          <option value="0" disabled>Select Level</option>
           <option value="100" selected>100</option>
           <option value="200">200</option>
           <option value="300">300</option>
@@ -105,8 +105,9 @@ if (isset($_POST['btnRegister'])) {
         <input type="text" class="form-control" id="txtPG" name="txtPG" />
       </div>
     </div>
-    <div class="card-footer">
-      <input type="submit" class="form-control mx-auto btn-success" style="width:70%;" id="btnRegister" name="btnRegister" value="Register" />
+    <div class="card-footer d-flex">
+      <input type="submit" class="form-control mx-auto btn-success" id="btnRegister" name="btnRegister" value="Register" />
+      <a href="javascript:history.back();" class="btn btn-warning btn-md form-control ml-2">Back</a>
     </div>
   </form>
 </div>

@@ -10,7 +10,7 @@ if ($result) {
     echo "<div class='my-5 py-3'>
           <h1 class='text-center'>View Courts</h1>
           <div class='float-right my-3'>
-            <a href='addCourt.php' class='btn btn-md btn-primary'>Add Court</a>
+            <a href='addCourt.php' class='btn btn-md btn-primary'><i class='fas fa-plus fa-xs fa-fw'></i> Add Court</a>
           </div>
           <div class='table-responsive my-3'>
             <table class='table table-striped table-hover'>
@@ -21,7 +21,7 @@ if ($result) {
                 <th>Address</th>
                 <th></th>
               </thead>
-              <tbody>
+              <tbody style='border-bottom: #cfcfcf 1px solid;'>
     ";
     $count = 0;
     while ($court = $result->fetch_assoc()) {
@@ -89,8 +89,7 @@ include_once("footer.php");
               console.log(data);
               if (data.status == 'success') {
                 console.log("success");
-                showAlert("Success", "Court Successfully removed");
-                
+                showActionAlert("Success", "Court Successfully removed");
               }else{
                 console.log("error");
                 showAlert("Error", "Error removing court");
