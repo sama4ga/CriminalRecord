@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 09, 2022 at 03:13 AM
+-- Generation Time: Dec 06, 2022 at 04:50 PM
 -- Server version: 10.1.32-MariaDB
 -- PHP Version: 7.2.5
 
@@ -47,12 +47,12 @@ CREATE TABLE `crime` (
   `id` int(11) NOT NULL,
   `statement` text NOT NULL,
   `officerId` int(11) NOT NULL,
-  `date` date NOT NULL,
+  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `scene` tinytext NOT NULL,
   `category` varchar(10) NOT NULL,
-  `status` varchar(10) NOT NULL,
+  `status` varchar(10) NOT NULL DEFAULT 'New',
   `subject` varchar(100) NOT NULL,
-  `priority` varchar(10) NOT NULL
+  `priority` varchar(10) NOT NULL DEFAULT 'Low'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -122,8 +122,8 @@ CREATE TABLE `verdict` (
   `courtId` int(11) NOT NULL,
   `crimeId` int(11) NOT NULL,
   `judge` varchar(200) NOT NULL,
+  `verdict` text NOT NULL,
   `status` varchar(10) NOT NULL,
-  `verdict` TEXT NOT NULL,
   `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -189,6 +189,7 @@ ALTER TABLE `verdict`
 -- Indexes for table `witness`
 --
 ALTER TABLE `witness`
+  ADD PRIMARY KEY (`id`),
   ADD KEY `studentId` (`studentId`),
   ADD KEY `crimeId` (`crimeId`);
 
@@ -200,37 +201,43 @@ ALTER TABLE `witness`
 -- AUTO_INCREMENT for table `court`
 --
 ALTER TABLE `court`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `crime`
 --
 ALTER TABLE `crime`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `officer`
 --
 ALTER TABLE `officer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `student`
 --
 ALTER TABLE `student`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `suspect`
 --
 ALTER TABLE `suspect`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `verdict`
 --
 ALTER TABLE `verdict`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `witness`
+--
+ALTER TABLE `witness`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables

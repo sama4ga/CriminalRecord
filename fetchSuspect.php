@@ -11,7 +11,8 @@ $crimeId = $_POST['cId'];
 $query = "SELECT `id`,`name`,`department`,`level`,`faculty`,`gender`,`phone`,`email`,`passport`,`address`
               from `student` 
               WHERE `name` LIKE '%$name%'
-              AND `id` NOT IN (SELECT `studentId` FROM `witness` WHERE `crimeId`=$crimeId);";
+              AND `id` NOT IN (SELECT `studentId` FROM `witness` WHERE `crimeId`=$crimeId)
+              AND `id` NOT IN (SELECT `studentId` FROM `suspect` WHERE `crimeId`=$crimeId);";
   $stmt = $con->prepare($query);
   // $stmt->bind_param("s",$name);
   $stmt->execute();

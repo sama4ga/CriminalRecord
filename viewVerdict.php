@@ -43,21 +43,23 @@ if ($stmt) {
                   <div class='col-8'>".$verdict['verdict']."</div>
                 </div>
               </div>
-              <div class='col-2'>
-                <a href='removeVerdict.php?id=".$verdict['verdictId']."' title='Remove verdict'><i class='fa fa-minus-circle' aria-hidden='true'></i></a>
+              <div class='col-2' data-id='".$verdict['verdictId']."'>
+                <button style='background:transparent;border:none;' onclick=(this,'removeVerdict.php')\" title='Remove verdict'>
+                  <i class='fa fa-minus-circle' aria-hidden='true'></i>
+                </button>
               </div>
             </div>
           </div>
           ";
     }
   }else{
-    echo "<div class='alert alert-info alert-dismissible'>No verdicts found</div>";
+    echo "<div class='alert alert-info alert-dismissible mt-5'>No verdicts found</div>";
   }
 }else{
-  echo "<div class='alert alert-danger alert-dismissible'>Error occured while fetching verdicts</div>".$con->error;
+  echo "<div class='alert alert-danger alert-dismissible mt-5'>Error occured while fetching verdicts</div>".$con->error;
 }
 
-echo "<div class='alert alert-info mt-2'><a href='addVerdict.php?cId=$crimeId'><i class='fa fa-plus' aria-hidden='true'></i> Add Verdict</a></div>";
+echo "<div class='alert alert-info mt-2 mb-5'><a href='addVerdict.php?cId=$crimeId'><i class='fa fa-plus' aria-hidden='true'></i> Add Verdict</a></div>";
 
 
 
@@ -67,3 +69,16 @@ echo "<div class='alert alert-info mt-2'><a href='addVerdict.php?cId=$crimeId'><
 
 include_once("footer.php");
 ?>
+
+
+<div id="dialog-confirm" title="Confirm Delete" style="display: none;">
+  <p class="mt-4">
+    Are you  sure you want to delete this record?
+  </p>
+</div>
+
+<div id="dialog-message" title="Delete complete" style="display: none;">
+  <p>
+    Record successfully deleted
+  </p>
+</div>

@@ -15,8 +15,8 @@ $query = "SELECT `id`,`name`,`rank`,`type`,`gender`,`phone`,`email`,`passport`,`
                 <a href='addOfficer.php' class='btn btn-primary btn-md'><i class='fa fa-plus'></i> Add Officer</a>
               </div>
               <div class='table-responsive'>
-                <table class='table table-striped table-hover'>
-                  <thead class='table-dark'>
+                <table class='table table-striped table-hover' id='tblOfficer'>
+                  <thead>
                     <th>S/N</th>
                     <th>Name</th>
                     <th>Rank</th>
@@ -79,42 +79,5 @@ include_once("footer.php");
 </div>
 
 <script>
-  function confirmDelete(e) {
-    $( "#dialog-confirm" ).dialog({
-      autoOpen: true,
-      height: "auto",
-      width: 350,
-      modal: true,
-      buttons: {
-        "Continue": function() {          
-          const id = $(e).parent()[0].dataset.id;
-          $.post("deleteOfficer.php", {id:id}, (d, status, xhr) => {
-            if (status == 'success') {
-              console.log(d);
-              const data = JSON.parse(d);
-              console.log(data);
-              if (data.status == 'success') {
-                console.log("success");
-                showActionAlert("Success", "Officer record successfully deleted");
-              }else{
-                console.log("error");
-                showAlert("Error", "Error deleting officer record");
-              }
-            }
-          })
-          $(this).dialog("close");
-          return true;
-        },
-        Cancel: function() {
-          $(this).dialog("close");
-          return false;
-        }
-      },
-      close: function() {
-        // form[ 0 ].reset();
-        // allFields.removeClass( "ui-state-error" );
-        return false;
-      }
-    });
-  }
+  $("#tblOfficer").DataTable();
 </script>

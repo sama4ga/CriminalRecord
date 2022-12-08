@@ -1,7 +1,7 @@
 <?php
 require_once("connect.php");
 
-$id = $_REQUEST['i'];
+$id = $_REQUEST['id'];
 
 $result = $con->query("DELETE FROM `crime` WHERE `id`=$id;");
 if ($result) {

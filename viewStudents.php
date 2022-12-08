@@ -15,8 +15,8 @@ $query = "SELECT `id`,`name`,`regNo`,`department`,`level`,`faculty`,`gender`,`ph
                 <a href='addStudent.php' class='btn btn-primary btn-md'><i class='fa fa-plus'></i> Add Student</a>
               </div>
               <div class='table-responsive'>
-                <table class='table table-striped table-hover'>
-                  <thead class='table-dark'>
+                <table class='table table-striped table-hover' id='tblStudent'>
+                  <thead>
                     <th>S/N</th>
                     <th>Name</th>
                     <th>Reg. No.</th>
@@ -81,3 +81,8 @@ include_once("footer.php");
     Student record successfully deleted
   </p>
 </div>
+
+
+<script>
+  $("#tblStudent").DataTable();
+</script>

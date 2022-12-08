@@ -37,7 +37,11 @@ if ($result) {
             <div class='row'>
               <div class='col-3'>Officer in-charge:</div>
               <div class='col-8'>".$crime['name']."</div>
-              <span><a href='removeOfficer.php?oId=".$crime['officerId']."&cId=".$crimeId."' title='Change Officer'><i class='fa fa-exchange-alt text-warning' aria-hidden='true'></i></a></span>
+              <span>
+                <a href='removeOfficer.php?oId=".$crime['officerId']."&cId=".$crimeId."' title='Change Officer'>
+                  <i class='fa fa-exchange-alt text-warning' aria-hidden='true'></i>
+                </a>
+              </span>
             </div>
           </div>
         ";
@@ -83,9 +87,11 @@ if ($result) {
                   <div class='col-9'>".$suspect['status']."</div>
                 </div>
               </div>
-              <div class='col-2'>
+              <div class='col-2' data-id='".$suspect['suspectId']."'>
                 <a href='viewStudent.php?id=".$suspect['studentId']."' title='View suspect info'><i class='fa fa-addresss-card' aria-hidden='true'></i></a>
-                <a href='removeSuspect.php?id=".$suspect['suspectId']."' title='Remove suspect'><i class='fa fa-minus-circle text-danger' aria-hidden='true'></i></a>
+                <buton style='background:transparent;border:none;' onclick=\"confirmDelete(this,'removeSuspect.php');\" title='Remove suspect'>
+                  <i class='fa fa-minus-circle text-danger' aria-hidden='true'></i>
+                </button>
               </div>
             </div>
           ";
@@ -136,7 +142,9 @@ if ($result) {
               </div>
               <div class='col-2' data-id='".$witness['witnessId']."'>
                 <a href='viewStudent.php?id=".$witness['studentId']."' title='View witness info'><i class='fa fa-address-card' aria-hidden='true'></i></a>
-                <a href=\"javascript: confirmDelete(this,'removeWitness.php');\" title='Remove witness'><i class='fa fa-minus-circle text-danger' aria-hidden='true'></i></a>
+                <button style='background:transparent;border:none;' onclick=\"confirmDelete(this,'removeWitness.php');\" title='Remove witness'>
+                  <i class='fa fa-minus-circle text-danger' aria-hidden='true'></i>
+                </button>
               </div>
             </div>
           ";
@@ -185,8 +193,10 @@ if ($result) {
                   <div class='col-8'>".$verdict['verdict']."</div>
                 </div>
               </div>
-              <div class='col-2'>
-                <a href='removeVerdict.php?id=".$verdict['verdictId']."' title='Remove verdict'><i class='fa fa-minus-circle text-danger' aria-hidden='true'></i></a>
+              <div class='col-2' data-id='".$verdict['verdictId']."'>
+                <button style='background:transparent;border:none;' onclick=\"confirmDelete(this,'removeVerdict.php');\" title='Remove verdict'>
+                  <i class='fa fa-minus-circle text-danger' aria-hidden='true'></i>
+                </button>
               </div>
             </div>
           ";

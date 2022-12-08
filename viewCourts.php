@@ -13,7 +13,7 @@ if ($result) {
             <a href='addCourt.php' class='btn btn-md btn-primary'><i class='fas fa-plus fa-xs fa-fw'></i> Add Court</a>
           </div>
           <div class='table-responsive my-3'>
-            <table class='table table-striped table-hover'>
+            <table class='table table-striped table-hover' id='tblCourt'>
               <thead>
                 <th>S/N</th>
                 <th>Court Name</th>
@@ -34,7 +34,7 @@ if ($result) {
                   <td>".$court['address']."</td>
                   <td class='d-flex' data-id='".$court['id']."'>
                     <a href='editCourt.php?id=".$court['id']."' class='btn btn-sm btn-primary' title='Edit Court'><i class='fas fa-edit fa-xs fa-fw'></i></a>
-                    <button onclick='confirmDelete(this)' class='btn btn-sm btn-danger' title='Remove Court'><i class='fas fa-trash fa-xs fa-fw'></i></button>
+                    <button onclick=\"confirmDelete(this, 'removeCourt.php')\" class='btn btn-sm btn-danger' title='Remove Court'><i class='fas fa-trash fa-xs fa-fw'></i></button>
                   </td>
                 </tr>
       ";
@@ -73,42 +73,5 @@ include_once("footer.php");
 </div>
 
 <script>
-  function confirmDelete(e) {
-    $( "#dialog-confirm" ).dialog({
-      autoOpen: true,
-      height: "auto",
-      width: 350,
-      modal: true,
-      buttons: {
-        "Continue": function() {          
-          const id = $(e).parent()[0].dataset.id;
-          $.post("removeCourt.php", {id:id}, (d, status, xhr) => {
-            if (status == 'success') {
-              console.log(d);
-              const data = JSON.parse(d);
-              console.log(data);
-              if (data.status == 'success') {
-                console.log("success");
-                showActionAlert("Success", "Court Successfully removed");
-              }else{
-                console.log("error");
-                showAlert("Error", "Error removing court");
-              }
-            }
-          })
-          $(this).dialog("close");
-          return true;
-        },
-        Cancel: function() {
-          $(this).dialog("close");
-          return false;
-        }
-      },
-      close: function() {
-        // form[ 0 ].reset();
-        // allFields.removeClass( "ui-state-error" );
-        return false;
-      }
-    });
-  }
+  $("#tblCourt").DataTable();
 </script>

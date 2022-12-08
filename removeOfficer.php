@@ -14,7 +14,7 @@ if (isset($_REQUEST['oId']) && isset($_REQUEST['cId'])) {
     $result = $stmt->get_result();
     if ($result->num_rows > 0) {
       echo "
-            <div class='card my-5 pt-5 pb-3'>
+            <div class='card my-5 pt-5 pb-3 mx-auto' style='width:400px;'>
               <h1 class='text-center'>Change officer</h1>
               <form method='POST' class='card-body' action='".htmlentities($_SERVER['PHP_SELF'])."'>
                 <div class='mb-5'>

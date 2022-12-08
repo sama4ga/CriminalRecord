@@ -18,16 +18,16 @@ if ($result) {
   if ($result->num_rows > 0) {
     echo "<div class='my-5'>
             <h3 class='text-center'>View Crimes</h3>
-            <div class='d-flex mx-auto mt-3'>
-              <input type='search' class='form-control mr-1' placeholder='Search Crimes' />
-              <button class='btn btn-md btn-secondary'>Search</button>
+            <!-- <div class='d-flex mx-auto mt-3'>
+              <input type='search' class='form-control mr-1' placeholder='Search Crimes' id='txtSearch'/>
+              <button class='btn btn-md btn-secondary' id='btnSearch'>Search</button>
             </div>
-            <div id='resultDiv' class='mb-3'></div>
+            <div id='resultDiv' class='my-3'></div> -->
             <div>
               <a href='addCrime.php' class='btn btn-md btn-success float-right mb-2'><i class='fa fa-plus' aria-hidden='true'></i> Add Crime</a>
             </div>
             <div class='table-responsive'>
-              <table class='table table-hover table-striped'>
+              <table class='table table-hover table-striped' id='tblCrime'>
                 <thead>
                   <th>S/N</th>
                   <th>Subject</th>
@@ -51,8 +51,8 @@ if ($result) {
                     <td class='text-nowrap'>".date('d-m-Y', strtotime($row['date']))."</td>
                     <td data-id='".$row['crimeId']."' class='d-flex'>
                       <button onclick='viewDetail(this)' class='btn btn-sm btn-primary' title='View detail'><i class='fa fa-list' aria-hidden='true'></i></button>
-                      <button onclick='viewVerdict(this)' class='btn btn-sm btn-warning' title='View verdicts'><i class='fa fa-address-card' aria-hidden='true'></i></button>
-                      <button onclick='confirmDelete(this)' class='btn btn-sm btn-danger' title='Delete'><i class='fa fa-trash' aria-hidden='true'></i></button>
+                      <button onclick=\"viewVerdict(this,'deleteCrime.php')\" class='btn btn-sm btn-warning' title='View verdicts'><i class='fa fa-address-card' aria-hidden='true'></i></button>
+                      <button onclick=\"confirmDelete(this, 'deleteCrime.php')\" class='btn btn-sm btn-danger' title='Delete'><i class='fa fa-trash' aria-hidden='true'></i></button>
                       <button onclick='editCrime(this)' class='btn btn-sm btn-info' title='Edit'><i class='fa fa-edit' aria-hidden='true'></i></button>
                     </td>
                   </tr>
@@ -105,77 +105,6 @@ if ($result) {
 ?>
 
 <script>
-  function showAlert(title,msg) {
-    $("#dialog-message p").text(msg);
-    $("#dialog-message").dialog({
-      modal: true,
-      title: title,
-      buttons: {
-        Ok: function() {
-          $(this).dialog("close");
-        }
-      }
-    });
-  };
-
-  // $( function() {
-  //   $( "#dialog-confirm" ).dialog({
-  //     resizable: false,
-  //     height: "auto",
-  //     width: 400,
-  //     modal: true,
-  //     buttons: {
-  //       "Delete all items": function() {
-  //         $( this ).dialog( "close" );
-  //       },
-  //       Cancel: function() {
-  //         $( this ).dialog( "close" );
-  //       }
-  //     }
-  //   });
-  // } );
-
-  function confirmDelete(e) {
-    $( "#dialog-confirm" ).dialog({
-      autoOpen: true,
-      height: "auto",
-      width: 350,
-      modal: true,
-      buttons: {
-        "Continue": function() {          
-          const id = $(e).parent()[0].dataset.id;
-          $.post("deleteCrime.php", {i:id}, (d, status, xhr) => {
-            if (status == 'success') {
-              console.log(d);
-              const data = JSON.parse(d);
-              console.log(data);
-              if (data.status == 'success') {
-                showAlert("Success", "Crime successfully deleted");
-              }else{
-                showAlert("Error", "Error deleting crime");
-              }
-            }
-          })
-          $(this).dialog("close");
-          return true;
-        },
-        Cancel: function() {
-          $(this).dialog("close");
-          return false;
-        }
-      },
-      close: function() {
-        // form[ 0 ].reset();
-        // allFields.removeClass( "ui-state-error" );
-        return false;
-      }
-    });
-  }
-
-  // $( "#deleteCrime" ).button().on( "click", function() {
-  //   dialog.dialog( "open" );
-  // });
-
   function viewDetail(e) {
     const id = $(e).parent()[0].dataset.id;
     $.post("getCrimeDetail.php", {'cId':id}, (data, status, xhr) => {
@@ -195,4 +124,11 @@ if ($result) {
     const id = $(e).parent()[0].dataset.id;
     window.location.href = "viewVerdict.php?cId="+id;
   }
+
+  $("#btnSearch").one("click", function(){
+    const searchText = $("#txtSearch").val();
+    $("#resultDiv").html(searchText);
+  });
+
+  $("#tblCrime").DataTable();
 </script>
