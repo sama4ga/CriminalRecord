@@ -79,6 +79,14 @@ CREATE TABLE `officer` (
 -- --------------------------------------------------------
 
 --
+-- Dump data for table `student`
+--
+INSERT INTO `officer` (`id`,`name`,`rank`,`type`,`dob`,`gender`,`phone`,`email`,`passport`,`address`,`username`,`password`) 
+  VALUES (1,'Admin','Admin','Admin','2023-01-01','Male','+23480800000000','admin@criminalrecord.com','','','Admin','Admin');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `student`
 --
 

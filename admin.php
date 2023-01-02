@@ -10,11 +10,11 @@ include_once("header.php");
 if (isset($_SESSION['officer'])) {
   $officer = $_SESSION['officer'];
 
-  // if ($officer->type != "Admin") {
-  //   http_response_code(401);
-  //   include_once("errors/401.php");
-  //   die();
-  // }
+  if ($officer->type != "Admin") {
+    http_response_code(401);
+    include_once("errors/401.php");
+    die();
+  }
 }else{
   http_response_code(403);
   include_once("errors/403.php");
